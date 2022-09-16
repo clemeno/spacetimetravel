@@ -1,28 +1,102 @@
-<h1>{{ title }}</h1>
+<article>
+  <h1>{{ title }}</h1>
 
-<section>
-  <h2>Constants</h2>
+  <mat-card>
+    <section>
+      <h2>Now</h2>
 
-  <h3>ISO 1990 UTC</h3>
-  <div>{{ iso1990Utc }}</div>
+      <aside class="clock_control">
+        <div>
+          <label>Refresh every</label>
+          <mat-form-field appearance="outline">
+            <mat-label>Seconds</mat-label>
+            <input
+              (keyup)="onRefreshIntervalChange()"
+              (change)="onRefreshIntervalChange()"
+              [(ngModel)]="clockrefreshIntervalSeconds"
+              matInput
+              type="number"
+              min="0"
+              step="1"
+              max="60"
+            >
+          </mat-form-field>
+        </div>
+        <button
+          *ngIf="!bClockRunning"
+          (click)="clockStart()"
+          mat-raised-button
+        >Start</button>
+        <button
+          *ngIf="bClockRunning"
+          (click)="clockStop()"
+          mat-raised-button
+        >Pause</button>
+      </aside>
 
-  <h3>UNIX 1990 UTC</h3>
-  <div>{{ unix1990Utc }}</div>
+      <h3>NOW ISO</h3>
+      <div>{{ nowIso }}</div>
 
-  <h3>ISO 1997 UTC</h3>
-  <div>{{ iso1997Utc }}</div>
+      <h3>NOW D TT z</h3>
+      <div>{{ nowDttz }}</div>
 
-  <h3>UNIX 1997 UTC</h3>
-  <div>{{ unix1997Utc }}</div>
+      <h3>NOW UNIX</h3>
+      <div>{{ nowUnix }}</div>
 
-  <h3>Seconds today</h3>
-  <div>{{ secondsToday }}</div>
+      <hr />
 
-  <h3>Minutes today</h3>
-  <div>{{ minutesToday }}</div>
+      <h3>TODAY START ISO</h3>
+      <div>{{ todayStartIso }}</div>
 
-  <h3>Seconds during the last 7 days</h3>
-  <div>{{ secondsDuringTheLast7Days }}</div>
-</section>
+      <h3>TODAY START D TT z</h3>
+      <div>{{ todayStartDttz }}</div>
+
+      <h3>TODAY START UNIX</h3>
+      <div>{{ todayStartUnix }}</div>
+
+      <hr />
+
+      <h3>TODAY STOP ISO</h3>
+      <div>{{ todayStopIso }}</div>
+
+      <h3>TODAY STOP D TT z</h3>
+      <div>{{ todayStopDttz }}</div>
+
+      <h3>TODAY STOP UNIX</h3>
+      <div>{{ todayStopUnix }}</div>
+    </section>
+  </mat-card>
+
+  <mat-card>
+    <section>
+      <h2>Constants</h2>
+
+      <h3>1990 UTC ISO</h3>
+      <div>{{ iso1990Utc }}</div>
+
+      <h3>1990 UTC UNIX</h3>
+      <div>{{ unix1990Utc }}</div>
+
+      <hr />
+
+      <h3>1997 UTC ISO</h3>
+      <div>{{ iso1997Utc }}</div>
+
+      <h3>1997 UTC UNIX</h3>
+      <div>{{ unix1997Utc }}</div>
+
+      <hr />
+
+      <h3>Seconds today</h3>
+      <div>{{ secondsToday }}</div>
+
+      <h3>Minutes today</h3>
+      <div>{{ minutesToday }}</div>
+
+      <h3>Seconds during the last 7 days</h3>
+      <div>{{ secondsDuringTheLast7Days }}</div>
+    </section>
+  </mat-card>
+</article>
 
 <router-outlet></router-outlet>
