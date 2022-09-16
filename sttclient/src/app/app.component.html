@@ -1,13 +1,16 @@
 <article>
-  <h1>{{ title }}</h1>
+  <div>
+    <h1>{{ title }}</h1>
+    <!-- <nav></nav> -->
+  </div>
 
-  <mat-card>
+  <div class="outline">
     <section>
       <h2>Now</h2>
 
       <aside class="clock_control">
         <div>
-          <label>Refresh every</label>
+          <h3><label for="refresh_every_seconds_input">Refresh every</label></h3>
           <mat-form-field appearance="outline">
             <mat-label>Seconds</mat-label>
             <input
@@ -19,6 +22,7 @@
               min="0"
               step="1"
               max="60"
+              id="refresh_every_seconds_input"
             >
           </mat-form-field>
         </div>
@@ -43,6 +47,9 @@
       <h3>NOW UNIX</h3>
       <div>{{ nowUnix }}</div>
 
+      <h3>NOW 1997 seconds</h3>
+      <div>{{ now1997s }}</div>
+
       <hr />
 
       <h3>TODAY START ISO</h3>
@@ -54,6 +61,9 @@
       <h3>TODAY START UNIX</h3>
       <div>{{ todayStartUnix }}</div>
 
+      <h3>TODAY START 1997 seconds</h3>
+      <div>{{ todayStart1997s }}</div>
+
       <hr />
 
       <h3>TODAY STOP ISO</h3>
@@ -64,10 +74,41 @@
 
       <h3>TODAY STOP UNIX</h3>
       <div>{{ todayStopUnix }}</div>
-    </section>
-  </mat-card>
 
-  <mat-card>
+      <h3>TODAY STOP 1997 seconds</h3>
+      <div>{{ todayStop1997s }}</div>
+
+      <hr />
+
+      <h3>7 DAYS AGO START ISO</h3>
+      <div>{{ _7DaysAgoStartIso }}</div>
+
+      <h3>7 DAYS AGO START D TT z</h3>
+      <div>{{ _7DaysAgoStartDttz }}</div>
+
+      <h3>7 DAYS AGO START UNIX</h3>
+      <div>{{ _7DaysAgoStartUnix }}</div>
+
+      <h3>7 DAYS AGO START 1997 seconds</h3>
+      <div>{{ _7DaysAgoStart1997s }}</div>
+
+      <hr />
+
+      <h3>30 DAYS AGO START ISO</h3>
+      <div>{{ _30DaysAgoStartIso }}</div>
+
+      <h3>30 DAYS AGO START D TT z</h3>
+      <div>{{ _30DaysAgoStartDttz }}</div>
+
+      <h3>30 DAYS AGO START UNIX</h3>
+      <div>{{ _30DaysAgoStartUnix }}</div>
+
+      <h3>30 DAYS AGO START 1997 seconds</h3>
+      <div>{{ _30DaysAgoStart1997s }}</div>
+    </section>
+  </div>
+
+  <div class="outline">
     <section>
       <h2>Constants</h2>
 
@@ -87,16 +128,72 @@
 
       <hr />
 
-      <h3>Seconds today</h3>
-      <div>{{ secondsToday }}</div>
+      <h3>Minutes in a day</h3>
+      <div>{{ minutesADay }}</div>
 
-      <h3>Minutes today</h3>
-      <div>{{ minutesToday }}</div>
+      <h3>Seconds in a day</h3>
+      <div>{{ secondsADay }}</div>
 
-      <h3>Seconds during the last 7 days</h3>
-      <div>{{ secondsDuringTheLast7Days }}</div>
+      <h3>Seconds in 7 days</h3>
+      <div>{{ secondsIn7Days }}</div>
+
+      <h3>Seconds in 30 days</h3>
+      <div>{{ secondsIn30Days }}</div>
     </section>
-  </mat-card>
+  </div>
+
+  <div class="outline">
+    <section>
+      <h2>Convert</h2>
+
+      <h3>From 1997</h3>
+      <mat-form-field appearance="outline">
+        <mat-label>Seconds</mat-label>
+        <input
+          [(ngModel)]="unixTimestampInput"
+          matInput
+          type="number"
+          step="1"
+        >
+      </mat-form-field>
+      <div>
+        <h4>To UTC ISO</h4>
+        <div *ngIf="unixTimestampInput; else dash">
+          {{ m1997Utc.plus( { second: +unixTimestampInput } ).toISO() }}
+        </div>
+        <h4>To Europe/Paris ISO</h4>
+        <div *ngIf="unixTimestampInput; else dash">
+          {{ m1997Utc.plus( { second: +unixTimestampInput } ).setZone( 'Europe/Paris' ).toISO() }}
+        </div>
+        <h4>7 days before start 1997 seconds</h4>
+        <div *ngIf="unixTimestampInput; else dash">
+          {{ m1997Utc.plus( { second: +unixTimestampInput } ).minus( { days: 7 } ).toSeconds() - unix1997Utc }}
+        </div>
+        <h4>7 days before start UTC ISO</h4>
+        <div *ngIf="unixTimestampInput; else dash">
+          {{ m1997Utc.plus( { second: +unixTimestampInput } ).minus( { days: 7 } ).toISO() }}
+        </div>
+        <h4>7 days before start Europe/Paris ISO</h4>
+        <div *ngIf="unixTimestampInput; else dash">
+          {{ m1997Utc.plus( { second: +unixTimestampInput } ).minus( { days: 7 } ).setZone( 'Europe/Paris' ).toISO() }}
+        </div>
+        <h4>30 days before start 1997 seconds</h4>
+        <div *ngIf="unixTimestampInput; else dash">
+          {{ m1997Utc.plus( { second: +unixTimestampInput } ).minus( { days: 30 } ).toSeconds() - unix1997Utc }}
+        </div>
+        <h4>30 days before start UTC ISO</h4>
+        <div *ngIf="unixTimestampInput; else dash">
+          {{ m1997Utc.plus( { second: +unixTimestampInput } ).minus( { days: 30 } ).toISO() }}
+        </div>
+        <h4>30 days before start Europe/Paris ISO</h4>
+        <div *ngIf="unixTimestampInput; else dash">
+          {{ m1997Utc.plus( { second: +unixTimestampInput } ).minus( { days: 30 } ).setZone( 'Europe/Paris' ).toISO() }}
+        </div>
+      </div>
+    </section>
+  </div>
 </article>
 
 <router-outlet></router-outlet>
+
+<ng-template #dash>-</ng-template>
