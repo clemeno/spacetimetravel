@@ -70,16 +70,19 @@ export class AppComponent implements OnInit {
   onClockTick () {
     this.mNow = DateTime.now()
 
+    this.nowIso = this.mNow.toISO()
     this.nowDttz = this.mNow.toFormat('D TT z')
     this.nowUnix = this.mNow.toSeconds()
 
     this.mTodayStart = this.mNow.startOf('day')
 
+    this.todayStartIso = this.mTodayStart.toISO()
     this.todayStartDttz = this.mTodayStart.toFormat('D TT z')
     this.todayStartUnix = this.mTodayStart.toSeconds()
 
     this.mTodayStop = this.mNow.endOf('day')
 
+    this.todayStopIso = this.mTodayStop.toISO()
     this.todayStopDttz = this.mTodayStop.toFormat('D TT z')
     this.todayStopUnix = this.mTodayStop.toSeconds()
   }
